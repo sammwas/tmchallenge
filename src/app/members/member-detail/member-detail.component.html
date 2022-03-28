@@ -1,0 +1,22 @@
+<div class="row" *ngIf="member">
+  <div class="col-4 mx-auto">
+    <div class="card mb-4">
+      <div class="card-img-wrapper">
+        <img src="{{member.imagePath || './assets/user.png'}}" alt="avatar" class="card-img-top">
+      </div>
+      <div class="card-body p-1">
+        <h6 class="card-title text-center mb-1">
+          <i class="fa fa-user mr-2"></i>
+          {{member.firstName}}
+        </h6>
+        <p class="card-text text-muted text-center">{{member.email}}</p>
+      </div>
+      <div class="card-footer">
+        <div class="btn-group d-flex">
+          <button class="btn btn-success" routerLink="/user/edit/{{member.id}}">Edit</button>
+          <button class="btn btn-primary" (click)="delete()">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
