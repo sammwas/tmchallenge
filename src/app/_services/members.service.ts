@@ -70,13 +70,13 @@ export class MembersService {
     );
   }
   editMember(id: number, model: any) {
-    return this.http.put(this.baseUrl + 'users/' + id, model, httpOptions).pipe(
+    return this.http.put(this.baseUrl + 'users/' + id, model).pipe(
       map((response) => {
         return response;
       })
     );
   }
   deleteMember(id: number) {
-    return this.http.delete(this.baseUrl + id, httpOptions);
+    return this.http.delete(this.baseUrl + id);
   }
 }

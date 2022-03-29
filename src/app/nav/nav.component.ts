@@ -1,5 +1,5 @@
 import { AccountService } from './../_services/account.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav.component.css'],
 })
 export class NavComponent implements OnInit {
+  @Input() userLocation: any = {};
   model: any = {};
   loggedIn: boolean;
 

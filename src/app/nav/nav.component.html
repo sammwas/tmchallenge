@@ -1,5 +1,4 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
-  <!-- <span class="float-left" routerLink="/"><img src="assets/topup-mama.png" style="max-height: 43px;"></span> -->
   <div class="container">
     <a class="navbar-brand" routerLink="/">Topup Mama</a>
     <ul class="navbar-nav mr-auto" *ngIf="loggedIn">
@@ -12,7 +11,9 @@
     </ul>
 
     <div class="dropdown" *ngIf="loggedIn" dropdown>
-      <a class="dropdown-toggle text-light" dropdownToggle>Welcome user</a>
+      <a class="dropdown-toggle text-light" dropdownToggle>
+        <span style="margin-right: 10px;"
+          *ngIf="userLocation">({{userLocation.location}},{{userLocation.country}})</span> Welcome user</a>
       <div class="dropdown-menu mt-3" *dropdownMenu>
         <a class="dropdown-item">My Account</a>
         <div class="dropdown-divider"></div>

@@ -11,7 +11,7 @@ import { Pagination } from 'src/app/_models/pagination';
 export class MemberListComponent implements OnInit {
   members: Member[];
   pagination: Pagination;
-  pageNumber = 2;
+  pageNumber = 1;
   pageSize = 6;
   constructor(private membersService: MembersService) {}
 

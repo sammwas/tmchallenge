@@ -43,4 +43,15 @@ export class AccountService {
     localStorage.removeItem('token');
     this.currentUserSource.next(null);
   }
+  getUserLocation() {
+    let latitude: number;
+    let longitude: number;
+    let url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`;
+    navigator.geolocation.getCurrentPosition((x) => {
+      latitude = x.coords.latitude;
+      longitude = x.coords.longitude;
+    });
+
+    return this.http.get(url).pipe(map((response) => response));
+  }
 }
