@@ -9,6 +9,8 @@ import { Member } from 'src/app/_models/member';
 })
 export class MemberListComponent implements OnInit {
   members: Member[];
+  pageNumber = 2;
+  pageSize = 6;
   constructor(private membersService: MembersService) {}
 
   ngOnInit(): void {
@@ -16,8 +18,8 @@ export class MemberListComponent implements OnInit {
   }
 
   loadMembers() {
-    this.membersService
-      .getMembers()
-      .subscribe((members) => (this.members = members));
+    this.membersService.getMembers(this.pageNumber).subscribe((members) => {
+      this.members = members;
+    });
   }
 }

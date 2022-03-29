@@ -1,5 +1,5 @@
 import { PaginatedResult } from './../_models/pagination';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
@@ -20,21 +20,30 @@ export class MembersService {
 
   constructor(private http: HttpClient) {}
 
-  getMembers() {
-    return this.http.get<Member[]>(this.baseUrl + 'users').pipe(
-      map((response: any) => {
-        if (response) {
-          let members: Member[] = [];
-          let users: any[] = Array.from(response.data);
-          users.forEach((x) => {
-            members.push(
-              new Member(x.id, x.email, x.first_name, x.last_name, x.avatar)
-            );
-          });
-          return members;
-        }
-      })
-    );
+  getMembers(page?: number) {
+    let params = new HttpParams();
+
+    if (page !== null) {
+      params = params.append('page', page.toString());
+    }
+
+    return this.http
+      .get<Member[]>(this.baseUrl + 'users', { observe: 'response', params })
+      .pipe(
+        map((response: any) => {
+          if (response) {
+            let appMembers = [];
+            let users: any[] = Array.from(response.body.data);
+            users.forEach((x) => {
+              appMembers.push(
+                new Member(x.id, x.email, x.first_name, x.last_name, x.avatar)
+              );
+            });
+            this.paginatedResult.result = appMembers;
+            return this.paginatedResult.result;
+          }
+        })
+      );
   }
   getMember(id: number) {
     return this.http.get<Member>(this.baseUrl + 'users/' + id).pipe(
