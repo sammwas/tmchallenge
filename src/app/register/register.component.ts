@@ -6,7 +6,6 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
 import { AccountService } from '../_services/account.service';
 
 @Component({
