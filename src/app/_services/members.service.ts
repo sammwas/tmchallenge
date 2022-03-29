@@ -1,4 +1,4 @@
-import { PaginatedResult } from './../_models/pagination';
+import { PaginatedResult, Pagination } from './../_models/pagination';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
@@ -34,13 +34,20 @@ export class MembersService {
           if (response) {
             let appMembers = [];
             let users: any[] = Array.from(response.body.data);
+            let pagination = response.body;
             users.forEach((x) => {
               appMembers.push(
                 new Member(x.id, x.email, x.first_name, x.last_name, x.avatar)
               );
             });
             this.paginatedResult.result = appMembers;
-            return this.paginatedResult.result;
+            this.paginatedResult.pagination = {
+              page: pagination.page,
+              per_page: pagination.per_page,
+              total: pagination.total,
+              total_pages: pagination.total_pages,
+            };
+            return this.paginatedResult;
           }
         })
       );
