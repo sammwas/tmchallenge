@@ -1,0 +1,38 @@
+<!-- <form #loginForm="ngForm" (ngSubmit)="login()" autocomplete="off">
+  <h2 class="text-center text-primary">Sign in</h2>
+  <hr>
+  <div class="form-group">
+    <input type="text" class="form-control" name="email" [(ngModel)]="model.email" placeholder="Email">
+  </div>
+  <div class="form-group">
+    <input type="password" class="form-control" name="password" [(ngModel)]="model.password" placeholder="Password">
+  </div>
+  <div class="form-group text-center">
+    <button class="btn btn-success mr-2" type="submit">Login</button>
+  </div>
+</form> -->
+<form [formGroup]='loginForm' (ngSubmit)="login()" autocomplete="off">
+  <h2 class="text-center text-primary">Sign up</h2>
+  <hr>
+  <div class="form-group">
+    <input [class.is-invalid]="loginForm.get('email').errors 
+        && loginForm.get('email').touched" type="text" class="form-control" formControlName='email'
+      placeholder="Email">
+    <div class="invalid-feedback">Please enter the user email</div>
+  </div>
+  <div class="form-group">
+    <input [class.is-invalid]="loginForm.get('password').errors
+        && loginForm.get('password').touched" type="password" class="form-control" formControlName="password"
+      placeholder="Password">
+    <div *ngIf="loginForm.get('password').hasError('required')" class="invalid-feedback">Please enter the user
+      password</div>
+    <div *ngIf="loginForm.get('password').hasError('minlength')" class="invalid-feedback">Password must be at least 8
+      characters
+    </div>
+    <div *ngIf="loginForm.get('password').hasError('isMatching')" class="invalid-feedback">Password should include
+      alphanumeric and special characters</div>
+  </div>
+  <div class="form-group text-center">
+    <button class="btn btn-success mr-2" type="submit">Login</button>
+  </div>
+</form>

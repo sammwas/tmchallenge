@@ -17,6 +17,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
     MemberProfileComponent,
     MemberCardComponent,
     MemberEditComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

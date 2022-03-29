@@ -1,3 +1,4 @@
+import { AccountService } from './../_services/account.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,13 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   registerMode = false;
-  constructor() {}
+  loginMode = false;
+  homeMode = true;
+  constructor(public accountService: AccountService) {}
 
   ngOnInit(): void {}
   registerToggle() {
     this.registerMode = !this.registerMode;
+    this.loginMode = false;
+    this.homeMode = false;
+  }
+  loginToggle() {
+    this.loginMode = !this.registerMode;
+    this.registerMode = false;
+    this.homeMode = false;
   }
   cancelRegisterMode(mode) {
     this.registerMode = mode;
+    this.homeMode = true;
   }
 }

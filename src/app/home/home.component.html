@@ -1,16 +1,26 @@
 <div class="container mt-5">
-  <div *ngIf="!registerMode" style="text-align: center;">
-    <h1>Topup Mama Challenge!!!</h1>
-    <p></p>
-    <div class="text-center">
-      <button (click)="registerToggle()" class="btn btn-primary btn-lg mr-2">Register</button>
-    </div>
-  </div>
-  <div *ngIf="registerMode" class="container">
-    <div class="row justify-content-center">
-      <div class="col-4">
-        <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>
+  <h1 style="text-align: center;">Topup Mama Challenge!!!</h1>
+  <ng-container *ngIf="(accountService.currentUser$ | async) === null">
+    <div *ngIf="homeMode">
+      <div class="text-center">
+        <button (click)="loginToggle()" class="btn btn-primary btn-lg mr-2">Login</button>
       </div>
     </div>
-  </div>
+    <div *ngIf="registerMode" class="container">
+      <div class="row justify-content-center">
+        <div class="col-4">
+          <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="loginMode" class="container">
+      <div class="row justify-content-center">
+        <div class="col-4">
+          <app-login></app-login>
+          <p class="text-center"><span class="register-link" (click)="registerToggle()">Create an account?</span></p>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
 </div>

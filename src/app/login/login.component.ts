@@ -1,4 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { AccountService } from './../_services/account.service';
+import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -6,26 +8,21 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
-import { AccountService } from '../_services/account.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
 })
-export class RegisterComponent implements OnInit {
-  model: any = {};
-  registerForm: FormGroup;
-  @Output() cancelRegister = new EventEmitter();
-  constructor(private accountService: AccountService) {}
+export class LoginComponent implements OnInit {
+  loginForm: FormGroup;
+  constructor(private accountService: AccountService, private router: Router) {}
 
   ngOnInit(): void {
     this.intializeForm();
   }
-
   intializeForm() {
-    this.registerForm = new FormGroup({
+    this.loginForm = new FormGroup({
       email: new FormControl('', Validators.required),
       password: new FormControl('', [
         Validators.required,
@@ -41,17 +38,14 @@ export class RegisterComponent implements OnInit {
       return regexp.test(control?.value) ? null : { isMatching: true };
     };
   }
-  register() {
-    this.accountService.register(this.registerForm.value).subscribe(
-      () => {
-        this.cancel();
+  login() {
+    this.accountService.login(this.loginForm.value).subscribe(
+      (response) => {
+        this.router.navigateByUrl('/users');
       },
       (error) => {
         console.log(error);
       }
     );
-  }
-  cancel() {
-    this.cancelRegister.emit(false);
   }
 }
